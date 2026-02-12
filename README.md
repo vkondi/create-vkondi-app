@@ -1,250 +1,76 @@
 # create-vkondi-app
 
-> Scaffold opinionated React (Vite) or Next.js applications
+Scaffold opinionated React (Vite) or Next.js applications with best practices baked in.
 
-A production-grade CLI tool for creating modern web applications with best practices baked in.
+## Table of Contents
+
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [What You Get](#what-you-get)
+- [Requirements](#requirements)
+- [User Guide](docs/USER_GUIDE.md)
+- [Developer Guide](docs/DEVELOPER_GUIDE.md)
+- [Publishing & Releases](#publishing--releases)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
-✨ **Framework Support**
-- React with Vite
-- Next.js (App Router)
+**Frameworks:** React (Vite), Next.js (App Router)
 
-🎯 **Development Tools**
-- TypeScript (optional)
-- ESLint with strict/standard modes
-- Prettier for consistent formatting
-- Husky + lint-staged for pre-commit hooks
+**Development:** TypeScript, ESLint (strict/standard), Prettier, Husky + lint-staged
 
-🧪 **Testing**
-- Vitest with React Testing Library
-- Coverage reporting
-- Example tests included
+**Testing:** Vitest with React Testing Library, coverage reporting
 
-🎨 **Styling**
-- Tailwind CSS (optional)
-- Clean, organized structure
+**Styling:** Tailwind CSS (optional)
 
-🐳 **DevOps**
-- Docker setup with multi-stage builds
-- Docker Compose for full-stack apps
-- GitHub Actions CI/CD workflows
+**DevOps:** Docker, GitHub Actions CI/CD
 
 ## Quick Start
 
 ```bash
 npx create-vkondi-app my-app
+cd my-app
+npm install
+npm run dev
 ```
 
-Or with a specific package manager:
-
-```bash
-npm create vkondi-app my-app
-# or
-pnpm create vkondi-app my-app
-# or
-yarn create vkondi-app my-app
-```
-
-## Usage
-
-### Interactive Mode
-
-Simply run the CLI and answer the prompts:
-
-```bash
-npx create-vkondi-app
-```
-
-### With Project Name
-
-Provide the project name as an argument:
-
-```bash
-npx create-vkondi-app my-awesome-app
-```
+For detailed usage, configuration options, and examples, see [User Guide](docs/USER_GUIDE.md)
 
 ## What You Get
 
-### React (Vite) Projects
+**React (Vite):** Lightning-fast HMR, feature-based structure, path aliases, strict TypeScript
 
-- ⚡ Lightning-fast HMR with Vite
-- 📁 Feature-based folder structure
-- 🎯 Path aliases configured (`@/`, `@features/`, etc.)
-- 🔒 Strict TypeScript configuration
-- 🧹 Clean, minimal boilerplate
+**Next.js:** App Router with RSC, security headers, absolute imports, optimized builds
 
-### Next.js Projects
+**Development Tools:** ESLint (flat config, import ordering), Prettier, Husky + lint-staged
 
-- 🚀 App Router with RSC
-- 🔐 Security headers configured
-- 📦 Absolute imports
-- ⚡ Optimized production builds
-- 🎯 TypeScript strict mode
+**Testing:** Vitest, React Testing Library, coverage, interactive UI
 
-### Development Tooling
+**CI/CD:** GitHub Actions with multi-version testing, type checking, linting
 
-**ESLint**
-- Flat config (ESLint 9+)
-- Import ordering
-- React-specific rules
-- Strict mode: no default exports, stricter rules
-
-**Prettier**
-- Opinionated formatting
-- Integrated with ESLint
-- Pre-commit formatting
-
-**Husky + lint-staged**
-- Pre-commit: lint + format + test
-- Pre-push: type-check
-
-**Vitest**
-- Fast unit testing
-- React Testing Library integration
-- Coverage reporting
-- UI mode for interactive testing
-
-### CI/CD
-
-**GitHub Actions**
-- Multi-version Node.js testing
-- Type checking
-- Linting and formatting checks
-- Test execution with coverage
-- Build verification
-
-### Docker
-
-**Frontend**
-- Multi-stage builds for optimized images
-- Production-ready Nginx (React) or standalone Node (Next.js)
-
-## Project Structure
-
-### React (Vite)
-
-```
-my-app/
-├── src/
-│   ├── app/           # Application-level components
-│   ├── features/      # Feature modules
-│   ├── shared/        # Shared components
-│   ├── lib/           # Utility libraries
-│   ├── hooks/         # Custom React hooks
-│   ├── types/         # TypeScript types
-│   ├── App.tsx        # Root component
-│   └── main.tsx       # Entry point
-├── public/            # Static assets
-├── .github/
-│   └── workflows/
-│       └── ci.yml     # CI/CD pipeline
-├── eslint.config.js   # ESLint configuration
-├── vite.config.ts     # Vite configuration
-├── vitest.config.ts   # Vitest configuration
-└── package.json
-```
-
-### Next.js
-
-```
-my-app/
-├── src/
-│   ├── app/           # App Router pages
-│   ├── components/    # React components
-│   ├── lib/           # Utilities
-│   └── types/         # TypeScript types
-├── public/            # Static assets
-├── .github/
-│   └── workflows/
-│       └── ci.yml     # CI/CD pipeline
-├── eslint.config.js   # ESLint configuration
-├── next.config.ts     # Next.js configuration
-└── package.json
-```
-
-## Development
-
-After creating your project:
-
-### Frontend
-
-```bash
-cd my-app
-npm run dev          # Start dev server
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run lint         # Lint code
-npm run format       # Format code
-npm run type-check   # TypeScript check
-npm run test         # Run tests
-npm run test:ui      # Interactive test UI
-npm run test:coverage # Coverage report
-```
-
-### Docker
-
-```bash
-# Frontend only
-docker build -t my-app .
-docker run -p 80:80 my-app
-```
-
-## Extensibility
-
-The CLI is designed for future extension commands:
-
-```bash
-# Planned features
-vkondi add auth          # Add authentication
-vkondi add stripe        # Add Stripe integration
-vkondi add shadcn        # Add shadcn/ui
-vkondi upgrade           # Upgrade dependencies
-```
-
-## Architecture
-
-### Modular Design
-
-Each feature is isolated in its own module:
-
-- **Scaffold modules**: Framework-specific scaffolding
-- **Feature modules**: Independent, reusable features
-- **Utility modules**: Shared helper functions
-- **Clean separation**: No interdependencies between features
-
-### Principles
-
-- ✅ Single Responsibility
-- ✅ Dependency Injection ready
-- ✅ Easy to test
-- ✅ Easy to extend
-- ✅ No magic, explicit code
+**Docker:** Multi-stage builds, production-ready images
 
 ## Requirements
 
 - Node.js 18+
 - npm, yarn, or pnpm
-- Git (optional, for repository initialization)
-- Docker (if using Docker setup)
+- Git (optional)
+- Docker (optional)
+
+## Publishing & Releases
+
+- [NPM Publishing](docs/NPM_PUBLISH.md) - Publish to npm registry
+- [GitHub Publishing](docs/GITHUB_PUBLISH.md) - Create GitHub releases
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for development guidelines.
+See [Contributing](CONTRIBUTING.md) for development guidelines and setup.
 
 ## License
 
-MIT
-
-## Acknowledgments
-
-Built with:
-- [Vite](https://vitejs.dev/)
-- [Next.js](https://nextjs.org/)
-- [Vitest](https://vitest.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
+[MIT](LICENSE)
 
 ---
 
-Made with ❤️ for the developer community
+Built for developers who refuse to compromise on clean code.
