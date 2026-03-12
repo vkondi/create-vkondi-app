@@ -10,9 +10,9 @@ npx create-vkondi-app my-app
 
 Or with specific package manager:
 ```bash
+yarn create vkondi-app my-app
 npm create vkondi-app my-app
 pnpm create vkondi-app my-app
-yarn create vkondi-app my-app
 ```
 
 ## Basic Usage
@@ -56,22 +56,22 @@ npx create-vkondi-app my-app
 Navigate to project:
 ```bash
 cd my-app
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 ### Available Commands
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run lint         # Lint code
-npm run format       # Format code
-npm run type-check   # Check TypeScript
-npm run test         # Run tests
-npm run test:ui      # Interactive test UI
-npm run test:coverage # Coverage report
+yarn dev             # Start development server
+yarn build           # Build for production
+yarn preview         # Preview production build
+yarn lint            # Lint code
+yarn format          # Format code
+yarn type-check      # Check TypeScript
+yarn test            # Run tests
+yarn test:ui         # Interactive test UI
+yarn test:coverage   # Coverage report
 ```
 
 ## Environment Variables
@@ -120,13 +120,13 @@ docker run -p 80:80 my-app
 
 **Vercel (Next.js):**
 ```bash
-npm install -g vercel
+yarn global add vercel
 vercel
 ```
 
 **Netlify (React):**
 ```bash
-npm run build
+yarn build
 # Upload dist/ folder to Netlify
 ```
 
@@ -141,48 +141,48 @@ docker push registry/my-app:latest
 **Port in use:**
 ```bash
 # Vite
-npm run dev -- --port 5174
+yarn dev --port 5174
 
 # Next.js
-npm run dev -- -p 3001
+yarn dev -p 3001
 ```
 
 **Dependencies error:**
 ```bash
-rm -rf node_modules package-lock.json
-npm install
+rm -rf node_modules yarn.lock
+yarn install
 ```
 
 **ESLint errors:**
 ```bash
-npm run lint:fix
+yarn lint:fix
 ```
 
 **TypeScript errors:**
 ```bash
-npm run type-check
+yarn type-check
 ```
 
 ## Adding Libraries
 
 **State Management:**
 ```bash
-npm install zustand
+yarn add zustand
 ```
 
 **Data Fetching:**
 ```bash
-npm install @tanstack/react-query
+yarn add @tanstack/react-query
 ```
 
 **Routing (React only):**
 ```bash
-npm install react-router-dom
+yarn add react-router-dom
 ```
 
 **Validation:**
 ```bash
-npm install zod
+yarn add zod
 ```
 
 ## Getting Help
@@ -191,5 +191,5 @@ npm install zod
 - GitHub issues for bugs
 - Include versions when reporting:
   - Node: `node --version`
-  - Package manager: `npm --version`
+  - Yarn: `yarn --version`
   - CLI: `create-vkondi-app --version`

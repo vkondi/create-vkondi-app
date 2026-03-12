@@ -16,8 +16,7 @@ export async function collectUserInput(projectName?: string): Promise<ProjectCon
       name: 'projectName',
       message: 'Project name:',
       initial: 'my-app',
-      validate: (value: string) =>
-        value.length > 0 ? true : 'Project name cannot be empty',
+      validate: (value: string) => (value.length > 0 ? true : 'Project name cannot be empty'),
     });
   }
 
@@ -106,13 +105,12 @@ export async function collectUserInput(projectName?: string): Promise<ProjectCon
     projectName: finalProjectName,
     projectPath,
     framework: answers.framework,
-    backend: answers.backend,
     typescript: answers.typescript,
     tailwind: answers.tailwind,
     testing: answers.testing,
     lintingMode: answers.lintingMode,
     githubActions: answers.githubActions,
     docker: answers.docker,
-    packageManager: 'npm', // Will be detected later
+    packageManager: 'yarn', // Will be detected later
   };
 }

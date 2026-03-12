@@ -20,7 +20,7 @@ const program = new Command();
 
 async function main() {
   console.clear();
-  
+
   program
     .name('create-vkondi-app')
     .description('Scaffold opinionated React (Vite) or Next.js applications')
@@ -73,11 +73,15 @@ async function runCLI(projectName?: string): Promise<void> {
 function displayConfiguration(context: ProjectContext): void {
   logger.info(chalk.bold('Project Configuration:'));
   logger.info(`  ${chalk.cyan('Name:')} ${context.projectName}`);
-  logger.info(`  ${chalk.cyan('Framework:')} ${context.framework === 'react' ? 'React (Vite)' : 'Next.js'}`);
+  logger.info(
+    `  ${chalk.cyan('Framework:')} ${context.framework === 'react' ? 'React (Vite)' : 'Next.js'}`
+  );
   logger.info(`  ${chalk.cyan('TypeScript:')} ${context.typescript ? 'Yes' : 'No'}`);
   logger.info(`  ${chalk.cyan('Tailwind CSS:')} ${context.tailwind ? 'Yes' : 'No'}`);
   logger.info(`  ${chalk.cyan('Testing:')} ${context.testing === 'vitest' ? 'Vitest' : 'None'}`);
-  logger.info(`  ${chalk.cyan('Linting:')} ${context.lintingMode === 'strict' ? 'Strict' : 'Standard'}`);
+  logger.info(
+    `  ${chalk.cyan('Linting:')} ${context.lintingMode === 'strict' ? 'Strict' : 'Standard'}`
+  );
   logger.info(`  ${chalk.cyan('GitHub Actions:')} ${context.githubActions ? 'Yes' : 'No'}`);
   logger.info(`  ${chalk.cyan('Docker:')} ${context.docker ? 'Yes' : 'No'}`);
 }
@@ -131,11 +135,15 @@ function displaySuccessMessage(context: ProjectContext): void {
 
   logger.info(chalk.bold('Next steps:'));
   logger.info(`  ${chalk.cyan('cd')} ${context.projectName}`);
-  
+
   if (context.framework === 'react') {
-    logger.info(`  ${chalk.cyan(getPackageManagerCommand(context.packageManager, 'run dev'))} - Start dev server`);
+    logger.info(
+      `  ${chalk.cyan(getPackageManagerCommand(context.packageManager, 'run dev'))} - Start dev server`
+    );
   } else {
-    logger.info(`  ${chalk.cyan(getPackageManagerCommand(context.packageManager, 'run dev'))} - Start dev server`);
+    logger.info(
+      `  ${chalk.cyan(getPackageManagerCommand(context.packageManager, 'run dev'))} - Start dev server`
+    );
   }
 
   logger.newLine();

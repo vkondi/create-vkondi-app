@@ -128,7 +128,7 @@ afterEach(() => {
 
 async function createExampleTest(context: ProjectContext): Promise<void> {
   const testDir = joinPath(context.projectPath, 'src', 'test');
-  
+
   let testContent = '';
 
   if (context.framework === 'react') {
@@ -166,9 +166,6 @@ describe('Example', () => {
 `;
   }
 
-  const testPath = joinPath(
-    testDir,
-    context.typescript ? 'example.test.tsx' : 'example.test.jsx'
-  );
+  const testPath = joinPath(testDir, context.typescript ? 'example.test.tsx' : 'example.test.jsx');
   await writeFile(testPath, testContent);
 }

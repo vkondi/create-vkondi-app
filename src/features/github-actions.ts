@@ -44,36 +44,48 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: \${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
-      ${context.typescript ? `- name: Type check
-        run: npm run type-check
-` : ''}
+      ${
+        context.typescript
+          ? `- name: Type check
+        run: yarn type-check
+`
+          : ''
+      }
       - name: Lint
-        run: npm run lint
+        run: yarn lint
 
       - name: Format check
-        run: npm run format:check
+        run: yarn format:check
 
-      ${context.testing === 'vitest' ? `- name: Run tests
-        run: npm run test
+      ${
+        context.testing === 'vitest'
+          ? `- name: Run tests
+        run: yarn test
 
       - name: Generate coverage
-        run: npm run test:coverage
-` : ''}
+        run: yarn test:coverage
+`
+          : ''
+      }
       - name: Build
-        run: npm run build
+        run: yarn build
 
-      ${context.testing === 'vitest' ? `- name: Upload coverage reports
+      ${
+        context.testing === 'vitest'
+          ? `- name: Upload coverage reports
         uses: codecov/codecov-action@v3
         with:
           files: ./coverage/coverage-final.json
           flags: unittests
           name: codecov-umbrella
-` : ''}
+`
+          : ''
+      }
 `;
 
   await writeFile(joinPath(workflowsDir, 'ci.yml'), workflow);

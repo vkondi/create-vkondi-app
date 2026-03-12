@@ -2,7 +2,6 @@ import type { ProjectContext } from '../context.js';
 import { logger } from '../utils/logger.js';
 import { writeFile, joinPath } from '../utils/file.js';
 import { addDevDependencies, addScripts } from '../utils/packageJson.js';
-import { runCommand } from '../utils/install.js';
 
 export async function setupHusky(context: ProjectContext): Promise<void> {
   logger.step('Setting up Husky and lint-staged...');
@@ -22,7 +21,7 @@ export async function setupHusky(context: ProjectContext): Promise<void> {
     // Configure lint-staged
     await configureLintStaged(context);
 
-    // Create husky hooks (will be created after npm install)
+    // Create husky hooks (will be created after yarn install)
     await createHuskyHooks(context);
 
     logger.success('Husky configured');
@@ -34,7 +33,7 @@ export async function setupHusky(context: ProjectContext): Promise<void> {
 
 async function configureLintStaged(context: ProjectContext): Promise<void> {
   const extension = context.typescript ? '{ts,tsx}' : '{js,jsx}';
-  
+
   const config = {
     [`src/**/*.${extension}`]: [
       'eslint --fix',
@@ -51,12 +50,12 @@ async function configureLintStaged(context: ProjectContext): Promise<void> {
 async function createHuskyHooks(context: ProjectContext): Promise<void> {
   // Create .husky directory and hooks
   const huskyDir = joinPath(context.projectPath, '.husky');
-  
+
   // pre-commit hook
   const preCommit = `#!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx lint-staged
+yarn dlx lint-staged
 `;
 
   await writeFile(joinPath(huskyDir, 'pre-commit'), preCommit);
@@ -65,11 +64,11 @@ npx lint-staged
   const prePush = `#!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-${context.typescript ? 'npm run type-check' : ''}
-${context.testing === 'vitest' ? 'npm run test' : ''}
+${context.typescript ? 'yarn type-check' : ''}
+${context.testing === 'vitest' ? 'yarn test' : ''}
 `;
 
   await writeFile(joinPath(huskyDir, 'pre-push'), prePush);
 
-  logger.info('Husky hooks created (run npm install to activate)');
+  logger.info('Husky hooks created (run yarn install to activate)');
 }

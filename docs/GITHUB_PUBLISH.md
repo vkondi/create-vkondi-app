@@ -12,7 +12,7 @@
 
 Bump version in `package.json`:
 ```bash
-npm version patch  # or minor, major
+yarn version patch  # or minor, major
 ```
 
 This creates a git tag automatically.
@@ -106,7 +106,7 @@ npx create-vkondi-app@latest my-app
 For beta testing:
 
 ```bash
-npm version 1.1.0-beta.1
+yarn version 1.1.0-beta.1
 git push --tags
 gh release create v1.1.0-beta.1 --prerelease
 ```
@@ -144,7 +144,7 @@ jobs:
 
 ## Best Practices
 
-- Match npm and GitHub versions
+- Match yarn and GitHub versions
 - Always update CHANGELOG.md first
 - Test thoroughly before releasing
 - Write clear, user-focused release notes

@@ -52,7 +52,7 @@ interface ProjectContext {
 ### Prerequisites
 
 - Node.js 18+
-- npm, yarn, or pnpm
+- Yarn 3+ (npm and pnpm also supported)
 - Git
 
 ### Initial Setup
@@ -60,35 +60,35 @@ interface ProjectContext {
 ```bash
 git clone <repository-url>
 cd create-vkondi-app
-npm install
-npm run build
-npm link
+yarn install
+yarn build
+yarn link
 ```
 
 ### Development Workflow
 
 ```bash
 # Watch mode (auto-rebuild)
-npm run dev
+yarn dev
 
 # Production build
-npm run build
+yarn build
 
 # Type check
-npm run type-check
+yarn type-check
 
 # Lint
-npm run lint
+yarn lint
 
 # Format
-npm run format
+yarn format
 ```
 
 ### Testing Changes
 
 ```bash
 # Build
-npm run build
+yarn build
 
 # Test in temp directory
 cd /tmp
@@ -96,12 +96,12 @@ create-vkondi-app test-project
 
 # Verify generated project
 cd test-project
-npm install
-npm run lint
-npm run type-check
-npm run test
-npm run build
-npm run dev
+yarn install
+yarn lint
+yarn type-check
+yarn test
+yarn build
+yarn dev
 ```
 
 ## Code Patterns
@@ -241,10 +241,10 @@ export async function scaffoldMyFramework(context: ProjectContext): Promise<void
 ### Before Committing
 
 ```bash
-npm run build
-npm run type-check
-npm run lint
-npm run format
+yarn build
+yarn type-check
+yarn lint
+yarn format
 ```
 
 Test generated project works correctly.
@@ -300,8 +300,8 @@ await addScripts(projectPath, { 'script-name': 'command' });
 
 1. Build and link:
 ```bash
-npm run build
-npm link
+yarn build
+yarn link
 ```
 
 2. Create test project:
@@ -313,10 +313,10 @@ create-vkondi-app test-app
 3. Verify:
 ```bash
 cd test-app
-npm install
-npm run dev
-npm run build
-npm run test
+yarn install
+yarn dev
+yarn build
+yarn test
 ```
 
 ### Test All Scenarios
@@ -394,15 +394,15 @@ interface Plugin {
 
 **Command not found:**
 ```bash
-npm unlink -g create-vkondi-app
-npm link
+yarn unlink -g create-vkondi-app
+yarn link
 ```
 
 **Build errors:**
 ```bash
-rm -rf node_modules package-lock.json
-npm install
-npm run build
+rm -rf node_modules yarn.lock
+yarn install
+yarn build
 ```
 
 **Generated project errors:**

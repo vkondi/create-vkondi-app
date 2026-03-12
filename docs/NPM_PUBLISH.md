@@ -52,7 +52,7 @@ docs/
 ### 3. Build the Package
 
 ```bash
-npm run build
+yarn build
 ```
 
 Verify `dist/` contains:
@@ -63,20 +63,20 @@ Verify `dist/` contains:
 
 ```bash
 # Link globally
-npm link
+yarn link
 
 # Test in temp directory
 cd /tmp
 create-vkondi-app test-app
 
 # Unlink when done
-npm unlink -g create-vkondi-app
+yarn unlink -g create-vkondi-app
 ```
 
 ### 5. Verify Package Contents
 
 ```bash
-npm pack --dry-run
+yarn pack --dry-run
 ```
 
 Review listed files to ensure nothing sensitive is included.
@@ -86,14 +86,14 @@ Review listed files to ensure nothing sensitive is included.
 ### First Time Setup
 
 ```bash
-npm login
+yarn npm login
 # Enter username, password, email
 ```
 
 ### Dry Run
 
 ```bash
-npm publish --dry-run
+yarn npm publish --dry-run
 ```
 
 Review output for warnings or errors.
@@ -101,12 +101,12 @@ Review output for warnings or errors.
 ### Publish
 
 ```bash
-npm publish
+yarn npm publish
 ```
 
 For scoped packages:
 ```bash
-npm publish --access public
+yarn npm publish --access public
 ```
 
 ## Post-Publication
@@ -127,20 +127,20 @@ Follow [Semantic Versioning](https://semver.org/):
 
 **Patch (1.0.x)**: Bug fixes
 ```bash
-npm version patch
-npm publish
+yarn version patch
+yarn npm publish
 ```
 
 **Minor (1.x.0)**: New features, backward compatible
 ```bash
-npm version minor
-npm publish
+yarn version minor
+yarn npm publish
 ```
 
 **Major (x.0.0)**: Breaking changes
 ```bash
-npm version major
-npm publish
+yarn version major
+yarn npm publish
 ```
 
 Update `CHANGELOG.md` before each release.
@@ -153,8 +153,8 @@ Update `CHANGELOG.md` before each release.
 
 **Authentication failed:**
 ```bash
-npm logout
-npm login
+yarn npm logout
+yarn npm login
 ```
 
 **Package not found after publish:**
@@ -164,7 +164,7 @@ npm login
 **Unpublish (use carefully):**
 ```bash
 # Only within 72 hours of publish
-npm unpublish create-vkondi-app@1.0.0
+yarn npm unpublish create-vkondi-app@1.0.0
 ```
 
 ## Best Practices

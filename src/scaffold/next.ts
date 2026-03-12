@@ -2,7 +2,6 @@ import { execa } from 'execa';
 import type { ProjectContext } from '../context.js';
 import { logger } from '../utils/logger.js';
 import { writeFile, joinPath } from '../utils/file.js';
-import { readPackageJson, writePackageJson } from '../utils/packageJson.js';
 
 export async function scaffoldNext(context: ProjectContext): Promise<void> {
   logger.step('Creating Next.js project...');
@@ -13,7 +12,7 @@ export async function scaffoldNext(context: ProjectContext): Promise<void> {
       context.projectName,
       '--',
       '--app',
-      '--use-npm',
+      '--use-yarn',
       '--no-git',
     ];
 
@@ -29,7 +28,7 @@ export async function scaffoldNext(context: ProjectContext): Promise<void> {
     // Use import alias
     args.push('--import-alias', '@/*');
 
-    await execa('npx', args, {
+    await execa('yarn', ['dlx', ...args], {
       cwd: process.cwd(),
       stdio: 'inherit',
     });

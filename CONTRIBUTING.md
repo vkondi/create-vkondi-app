@@ -7,9 +7,9 @@ Thank you for your interest in contributing!
 ```bash
 git clone <repository-url>
 cd create-vkondi-app
-npm install
-npm run build
-npm link
+yarn install
+yarn build
+yarn link
 ```
 
 Test locally:
@@ -39,11 +39,11 @@ See [Developer Guide](docs/DEVELOPER_GUIDE.md) for detailed architecture informa
 ## Development Workflow
 
 ```bash
-npm run dev          # Watch mode
-npm run build        # Production build
-npm run type-check   # TypeScript validation
-npm run lint         # Code linting
-npm run format       # Code formatting
+yarn dev           # Watch mode
+yarn build         # Production build
+yarn type-check    # TypeScript validation
+yarn lint          # Code linting
+yarn format        # Code formatting
 ```
 
 ## Code Style
@@ -67,8 +67,8 @@ See [Developer Guide - Extending the CLI](docs/DEVELOPER_GUIDE.md#extending-the-
 
 ```bash
 # Build and link
-npm run build
-npm link
+yarn build
+yarn link
 
 # Test in temp directory
 cd /tmp
@@ -76,12 +76,12 @@ create-vkondi-app test-project
 
 # Verify generated project
 cd test-project
-npm install
-npm run lint
-npm run type-check
-npm run test
-npm run build
-npm run dev
+yarn install
+yarn lint
+yarn type-check
+yarn test
+yarn build
+yarn dev
 ```
 
 ## Pull Request Process
@@ -111,10 +111,10 @@ Docs: Update contribution guidelines
 ## Before Committing
 
 ```bash
-npm run build
-npm run type-check
-npm run lint
-npm run format
+yarn build
+yarn type-check
+yarn lint
+yarn format
 ```
 
 Test generated project in temp directory.

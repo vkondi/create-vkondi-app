@@ -52,14 +52,6 @@ function getESLintDependencies(context: ProjectContext): Record<string, string> 
 
 async function createESLintConfig(context: ProjectContext): Promise<void> {
   const isStrict = context.lintingMode === 'strict';
-  
-  let config: any;
-
-  if (context.framework === 'react') {
-    config = createReactESLintConfig(context, isStrict);
-  } else {
-    config = createNextESLintConfig(context, isStrict);
-  }
 
   const configPath = joinPath(context.projectPath, 'eslint.config.js');
   const configContent = `import js from '@eslint/js';
@@ -76,14 +68,18 @@ export default [
       ${context.framework === 'react' ? 'react,\n      reactHooks,\n      jsxA11y,' : ''}
       import: importPlugin,
     },
-    ${context.typescript ? `languageOptions: {
+    ${
+      context.typescript
+        ? `languageOptions: {
       parser: tsParser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        ${context.framework === 'react' ? "ecmaFeatures: { jsx: true }," : ''}
+        ${context.framework === 'react' ? 'ecmaFeatures: { jsx: true },' : ''}
       },
-    },` : ''}
+    },`
+        : ''
+    }
     rules: {
       ${isStrict ? "'no-console': ['warn', { allow: ['warn', 'error'] }]," : "'no-console': 'off',"}
       'no-unused-vars': 'off',
@@ -118,18 +114,6 @@ export default [
 `;
 
   await writeFile(configPath, configContent);
-}
-
-function createReactESLintConfig(context: ProjectContext, isStrict: boolean): any {
-  return {
-    // Config is generated in the template above
-  };
-}
-
-function createNextESLintConfig(context: ProjectContext, isStrict: boolean): any {
-  return {
-    // Config is generated in the template above
-  };
 }
 
 async function createESLintIgnore(context: ProjectContext): Promise<void> {

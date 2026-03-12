@@ -18,7 +18,7 @@ export async function detectPackageManager(): Promise<'npm' | 'yarn' | 'pnpm'> {
 
 export async function installDependencies(context: ProjectContext): Promise<void> {
   logger.startSpinner(`Installing dependencies with ${context.packageManager}...`);
-  
+
   try {
     const installCommand = context.packageManager === 'npm' ? 'install' : 'install';
     await execa(context.packageManager, [installCommand], {
@@ -63,7 +63,9 @@ export async function initGit(projectPath: string): Promise<void> {
     await execa('git', ['--version']);
     await execa('git', ['init'], { cwd: projectPath });
     await execa('git', ['add', '.'], { cwd: projectPath });
-    await execa('git', ['commit', '-m', 'Initial commit from create-vkondi-app'], { cwd: projectPath });
+    await execa('git', ['commit', '-m', 'Initial commit from create-vkondi-app'], {
+      cwd: projectPath,
+    });
     logger.success('Git repository initialized');
   } catch {
     logger.warning('Git not found, skipping repository initialization');

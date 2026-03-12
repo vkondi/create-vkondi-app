@@ -28,11 +28,11 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 COPY . .
-RUN npm run build
+RUN yarn build
 
 # Production stage
 FROM nginx:alpine
@@ -52,8 +52,8 @@ FROM node:20-alpine AS deps
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 # Build stage
 FROM node:20-alpine AS build
@@ -63,7 +63,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 # Production stage
 FROM node:20-alpine AS production
@@ -87,7 +87,7 @@ CMD ["node", "server.js"]
 
 async function createDockerignore(context: ProjectContext): Promise<void> {
   const dockerignore = `node_modules
-npm-debug.log
+yarn-error.log
 .next
 .git
 .gitignore

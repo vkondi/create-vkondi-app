@@ -1,8 +1,7 @@
 import type { ProjectContext } from '../context.js';
 import { logger } from '../utils/logger.js';
 import { writeFile, joinPath } from '../utils/file.js';
-import { addDevDependencies, addDependencies } from '../utils/packageJson.js';
-import { runCommand } from '../utils/install.js';
+import { addDevDependencies } from '../utils/packageJson.js';
 
 export async function setupTailwind(context: ProjectContext): Promise<void> {
   logger.step('Setting up Tailwind CSS...');
@@ -72,11 +71,11 @@ async function updateCSSFiles(context: ProjectContext): Promise<void> {
   if (context.framework === 'react') {
     const cssPath = joinPath(context.projectPath, 'src', 'index.css');
     await writeFile(cssPath, tailwindDirectives);
-    
+
     // Update main entry to import CSS
     const mainExtension = context.typescript ? 'tsx' : 'jsx';
     const mainPath = joinPath(context.projectPath, 'src', `main.${mainExtension}`);
-    
+
     const mainContent = `import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';

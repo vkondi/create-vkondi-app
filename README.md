@@ -31,8 +31,8 @@ Scaffold opinionated React (Vite) or Next.js applications with best practices ba
 ```bash
 npx create-vkondi-app my-app
 cd my-app
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 For detailed usage, configuration options, and examples, see [User Guide](docs/USER_GUIDE.md)
@@ -54,7 +54,7 @@ For detailed usage, configuration options, and examples, see [User Guide](docs/U
 ## Requirements
 
 - Node.js 18+
-- npm, yarn, or pnpm
+- Yarn 3+ (npm and pnpm also supported)
 - Git (optional)
 - Docker (optional)
 

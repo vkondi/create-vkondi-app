@@ -2,7 +2,6 @@ import { execa } from 'execa';
 import type { ProjectContext } from '../context.js';
 import { logger } from '../utils/logger.js';
 import { ensureDir, writeFile, joinPath, removeFile } from '../utils/file.js';
-import { readPackageJson, writePackageJson } from '../utils/packageJson.js';
 
 export async function scaffoldReact(context: ProjectContext): Promise<void> {
   logger.step('Creating React (Vite) project...');
@@ -10,10 +9,14 @@ export async function scaffoldReact(context: ProjectContext): Promise<void> {
   try {
     // Create Vite project
     const template = context.typescript ? 'react-ts' : 'react';
-    await execa('npm', ['create', 'vite@latest', context.projectName, '--', '--template', template], {
-      cwd: process.cwd(),
-      stdio: 'pipe',
-    });
+    await execa(
+      'yarn',
+      ['create', 'vite@latest', context.projectName, '--', '--template', template],
+      {
+        cwd: process.cwd(),
+        stdio: 'pipe',
+      }
+    );
 
     logger.success('React project created');
 
@@ -101,7 +104,7 @@ async function createReactFolderStructure(context: ProjectContext): Promise<void
 
   // Create index files for better organization
   const indexContent = '// Export your modules here\n';
-  
+
   for (const folder of folders) {
     const extension = context.typescript ? 'ts' : 'js';
     await writeFile(
@@ -147,14 +150,11 @@ export default defineConfig({
 async function configureStrictTypeScript(context: ProjectContext): Promise<void> {
   const tsconfigPath = joinPath(context.projectPath, 'tsconfig.json');
   const tsconfigAppPath = joinPath(context.projectPath, 'tsconfig.app.json');
-  
+
   // Read existing tsconfig
   const tsconfig = {
     files: [],
-    references: [
-      { path: './tsconfig.app.json' },
-      { path: './tsconfig.node.json' }
-    ],
+    references: [{ path: './tsconfig.app.json' }, { path: './tsconfig.node.json' }],
     compilerOptions: {
       composite: true,
       tsBuildInfoFile: './node_modules/.tmp/tsconfig.app.tsbuildinfo',
@@ -189,7 +189,7 @@ async function configureStrictTypeScript(context: ProjectContext): Promise<void>
   };
 
   await writeFile(tsconfigPath, JSON.stringify(tsconfig, null, 2));
-  
+
   // Update tsconfig.app.json with path mappings
   const tsconfigApp = {
     compilerOptions: {
