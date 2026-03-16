@@ -245,9 +245,25 @@ yarn build
 yarn type-check
 yarn lint
 yarn format
+yarn test:run
 ```
 
 Test generated project works correctly.
+
+## Testing
+
+For comprehensive testing documentation including running tests, writing new tests, mocking strategies, coverage goals, and troubleshooting, see [TESTING_GUIDE.md](TESTING_GUIDE.md).
+
+Quick commands:
+
+```bash
+yarn test:run        # Run all tests once
+yarn test:watch      # Auto-rerun on changes
+yarn test:ui         # Interactive UI dashboard
+yarn test:coverage   # Generate coverage report
+```
+
+## Code Organization Rules
 
 ### Modularity Rules
 

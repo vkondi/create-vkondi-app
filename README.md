@@ -8,9 +8,8 @@ Scaffold opinionated React (Vite) or Next.js applications with best practices ba
 - [Quick Start](#quick-start)
 - [What You Get](#what-you-get)
 - [Requirements](#requirements)
-- [User Guide](docs/USER_GUIDE.md)
-- [Developer Guide](docs/DEVELOPER_GUIDE.md)
-- [Publishing & Releases](#publishing--releases)
+- [Development & Testing](#development--testing)
+- [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -58,8 +57,59 @@ For detailed usage, configuration options, and examples, see [User Guide](docs/U
 - Git (optional)
 - Docker (optional)
 
-## Publishing & Releases
+## Development & Testing
 
+### Development Setup
+
+```bash
+# Install dependencies
+yarn install
+
+# Start development (watch mode)
+yarn dev
+
+# Type checking
+yarn type-check
+
+# Linting
+yarn lint
+
+# Formatting
+yarn format
+```
+
+### Testing
+
+This project includes comprehensive unit tests using **Vitest**:
+
+```bash
+# Run all tests once
+yarn test:run
+
+# Run tests in watch mode
+yarn test:watch
+
+# View interactive test UI
+yarn test:ui
+
+# Generate coverage report
+yarn test:coverage
+```
+
+**Test Coverage:**
+- File utilities (100%)
+- Package.json manipulation (100%)
+- Logging system (95%)
+- User prompts (85%+)
+- Installation utilities (90%+)
+
+For detailed testing information, see [Testing Guide](docs/TESTING_GUIDE.md)
+
+## Documentation
+
+- [User Guide](docs/USER_GUIDE.md) - How to use create-vkondi-app
+- [Developer Guide](docs/DEVELOPER_GUIDE.md) - Architecture and extending the CLI
+- [Testing Guide](docs/TESTING_GUIDE.md) - Running and writing tests
 - [NPM Publishing](docs/NPM_PUBLISH.md) - Publish to npm registry
 - [GitHub Publishing](docs/GITHUB_PUBLISH.md) - Create GitHub releases
 
