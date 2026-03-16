@@ -13,6 +13,7 @@ export default defineConfig({
         'dist/',
         '**/*.test.ts',
         '**/*.config.ts',
+        '**/test-project',
       ],
     },
     include: ['src/**/*.test.ts'],

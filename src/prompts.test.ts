@@ -276,8 +276,9 @@ describe('Prompts Module', () => {
         throw new Error('process.exit');
       });
 
-      vi.mocked(prompts).mockImplementationOnce(async (questions, config: any) => {
+      vi.mocked(prompts).mockImplementationOnce(async (_questions: any, config: any) => {
         config.onCancel();
+        return {};
       });
 
       await expect(collectUserInput()).rejects.toThrow('process.exit');

@@ -28,7 +28,7 @@ describe('Install Utils', () => {
 
   describe('detectPackageManager', () => {
     it('should detect pnpm first if available', async () => {
-      vi.mocked(execa).mockImplementationOnce(async () => ({ stdout: '8.0.0' }) as any);
+      vi.mocked(execa).mockImplementationOnce((async () => ({ stdout: '8.0.0' })) as any);
 
       const result = await detectPackageManager();
 
@@ -39,7 +39,7 @@ describe('Install Utils', () => {
     it('should detect yarn if pnpm is not available', async () => {
       vi.mocked(execa)
         .mockRejectedValueOnce(new Error('pnpm not found'))
-        .mockImplementationOnce(async () => ({ stdout: '1.22.0' }) as any);
+        .mockImplementationOnce((async () => ({ stdout: '1.22.0' })) as any);
 
       const result = await detectPackageManager();
 
@@ -178,7 +178,7 @@ describe('Install Utils', () => {
 
       await runCommand('npm', ['run', 'build'], customPath);
 
-      const callArgs = vi.mocked(execa).mock.calls[0];
+      const callArgs = vi.mocked(execa).mock.calls[0] as any[];
       expect(callArgs[2]?.cwd).toBe(customPath);
     });
   });

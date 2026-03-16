@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import fs from 'fs-extra';
 import path from 'path';
 import {
@@ -64,7 +64,7 @@ describe('File Utils', () => {
   describe('readFile', () => {
     it('should read file content', async () => {
       const content = 'file content';
-      vi.mocked(fs.readFile).mockResolvedValueOnce(content);
+      vi.mocked(fs.readFile).mockResolvedValueOnce(content as any);
       
       const result = await readFile('/test/file.txt');
       
@@ -73,7 +73,7 @@ describe('File Utils', () => {
     });
 
     it('should return empty string for empty files', async () => {
-      vi.mocked(fs.readFile).mockResolvedValueOnce('');
+      vi.mocked(fs.readFile).mockResolvedValueOnce('' as any);
       
       const result = await readFile('/test/empty.txt');
       
@@ -93,7 +93,7 @@ describe('File Utils', () => {
 
   describe('pathExists', () => {
     it('should return true if path exists', async () => {
-      vi.mocked(fs.pathExists).mockResolvedValueOnce(true);
+      vi.mocked(fs.pathExists).mockResolvedValueOnce(true as any);
       
       const result = await pathExists('/existing/path');
       
@@ -101,7 +101,7 @@ describe('File Utils', () => {
     });
 
     it('should return false if path does not exist', async () => {
-      vi.mocked(fs.pathExists).mockResolvedValueOnce(false);
+      vi.mocked(fs.pathExists).mockResolvedValueOnce(false as any);
       
       const result = await pathExists('/nonexistent/path');
       
@@ -160,7 +160,7 @@ describe('File Utils', () => {
     });
 
     it('should throw on invalid JSON', async () => {
-      vi.mocked(fs.readFile).mockResolvedValueOnce('invalid json {');
+      vi.mocked(fs.readFile).mockResolvedValueOnce('invalid json {' as any);
       
       await expect(readJsonFile('/test/invalid.json')).rejects.toThrow();
     });
@@ -171,7 +171,7 @@ describe('File Utils', () => {
         scripts: { test: 'vitest', build: 'tsc' },
         dependencies: { react: '^18.0.0' },
       };
-      vi.mocked(fs.readFile).mockResolvedValueOnce(JSON.stringify(complexData));
+      vi.mocked(fs.readFile).mockResolvedValueOnce(JSON.stringify(complexData) as any);
       
       const result = await readJsonFile('/test/package.json');
       

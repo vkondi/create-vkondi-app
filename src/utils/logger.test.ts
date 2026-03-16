@@ -19,7 +19,7 @@ vi.mock('chalk', () => ({
 vi.mock('ora');
 
 describe('Logger Utils', () => {
-  let consoleSpy: ReturnType<typeof vi.spyOn>;
+  let consoleSpy: any;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -130,8 +130,8 @@ describe('Logger Utils', () => {
 
   describe('succeedSpinner', () => {
     it('should succeed spinner with message', () => {
-      const mockSpinner = {
-        start: vi.fn((message?: string) => mockSpinner),
+      const mockSpinner: any = {
+        start: vi.fn((_message?: string) => mockSpinner),
         succeed: vi.fn(),
         fail: vi.fn(),
         stop: vi.fn(),
@@ -151,8 +151,8 @@ describe('Logger Utils', () => {
 
   describe('failSpinner', () => {
     it('should fail spinner with message', () => {
-      const mockSpinner = {
-        start: vi.fn((message?: string) => mockSpinner),
+      const mockSpinner: any = {
+        start: vi.fn((_message?: string) => mockSpinner),
         succeed: vi.fn(),
         fail: vi.fn(),
         stop: vi.fn(),
@@ -172,8 +172,8 @@ describe('Logger Utils', () => {
 
   describe('stopSpinner', () => {
     it('should stop spinner', () => {
-      const mockSpinner = {
-        start: vi.fn((message?: string) => mockSpinner),
+      const mockSpinner: any = {
+        start: vi.fn((_message?: string) => mockSpinner),
         succeed: vi.fn(),
         fail: vi.fn(),
         stop: vi.fn(),
