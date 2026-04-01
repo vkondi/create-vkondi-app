@@ -1,14 +1,13 @@
 {
   "name": "create-vkondi-app",
   "version": "1.0.0",
-  "description": "Scaffold opinionated React (Vite) or Next.js applications",
+  "description": "Scaffold opinionated React or Next.js applications",
   "type": "module",
   "bin": {
     "create-vkondi-app": "./dist/index.js"
   },
   "files": [
-    "dist",
-    "templates"
+    "dist"
   ],
   "scripts": {
     "dev": "tsup --watch",
@@ -36,7 +35,11 @@
     "vite",
     "typescript"
   ],
-  "author": "VK",
+  "author": "Vishwajeet Kondi <vishdevwork@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vkondi/create-vkondi-app"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
