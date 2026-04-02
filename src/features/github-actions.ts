@@ -2,6 +2,24 @@ import type { ProjectContext } from '../context.js';
 import { logger } from '../utils/logger.js';
 import { writeFile, joinPath, ensureDir } from '../utils/file.js';
 
+function getInstallCmd(pm: 'npm' | 'yarn' | 'pnpm'): string {
+  if (pm === 'yarn') return 'yarn install --frozen-lockfile';
+  if (pm === 'pnpm') return 'pnpm install --frozen-lockfile';
+  return 'npm ci';
+}
+
+function getRunCmd(pm: 'npm' | 'yarn' | 'pnpm', script: string): string {
+  if (pm === 'npm') return `npm run ${script}`;
+  if (pm === 'pnpm') return `pnpm ${script}`;
+  return `yarn ${script}`;
+}
+
+function getTestCmd(pm: 'npm' | 'yarn' | 'pnpm'): string {
+  if (pm === 'npm') return 'npm test';
+  if (pm === 'pnpm') return 'pnpm test';
+  return 'yarn test';
+}
+
 export async function setupGithubActions(context: ProjectContext): Promise<void> {
   logger.startSpinner('Setting up GitHub Actions...');
 
@@ -21,6 +39,7 @@ export async function setupGithubActions(context: ProjectContext): Promise<void>
 }
 
 async function createCIWorkflow(context: ProjectContext, workflowsDir: string): Promise<void> {
+  const pm = context.packageManager;
   const workflow = `name: CI
 
 on:
@@ -44,36 +63,36 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: \${{ matrix.node-version }}
-          cache: 'yarn'
+          cache: '${pm}'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: ${getInstallCmd(pm)}
 
       ${
         context.typescript
           ? `- name: Type check
-        run: yarn type-check
+        run: ${getRunCmd(pm, 'type-check')}
 `
           : ''
       }
       - name: Lint
-        run: yarn lint
+        run: ${getRunCmd(pm, 'lint')}
 
       - name: Format check
-        run: yarn format:check
+        run: ${getRunCmd(pm, 'format:check')}
 
       ${
         context.testing === 'vitest'
           ? `- name: Run tests
-        run: yarn test
+        run: ${getTestCmd(pm)}
 
       - name: Generate coverage
-        run: yarn test:coverage
+        run: ${getRunCmd(pm, 'test:coverage')}
 `
           : ''
       }
       - name: Build
-        run: yarn build
+        run: ${getRunCmd(pm, 'build')}
 
       ${
         context.testing === 'vitest'

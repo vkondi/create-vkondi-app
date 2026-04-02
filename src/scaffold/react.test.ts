@@ -72,13 +72,16 @@ describe('React Project Scaffold', () => {
       );
     });
 
-    it('should call execa with yarn args when packageManager is yarn', async () => {
+    it('should use npm to create vite project when packageManager is yarn', async () => {
+      // yarn classic on Windows has a bug where unquoted Node.js paths with spaces
+      // (e.g. C:\Program Files\nodejs\node.exe) cause command-not-found errors.
+      // We always delegate to 'npm create vite@latest' for both npm and yarn.
       const yarnContext = { ...mockContext, packageManager: 'yarn' as const };
       await scaffoldReact(yarnContext);
 
       expect(vi.mocked(execa)).toHaveBeenCalledWith(
-        'yarn',
-        ['create', 'vite', yarnContext.projectName, '--template', 'react-ts'],
+        'npm',
+        ['create', 'vite@latest', yarnContext.projectName, '--', '--template', 'react-ts'],
         expect.any(Object)
       );
     });

@@ -2,6 +2,24 @@ import type { ProjectContext } from '../context.js';
 import { logger } from '../utils/logger.js';
 import { writeFile, joinPath } from '../utils/file.js';
 
+function getLockFile(pm: 'npm' | 'yarn' | 'pnpm'): string {
+  if (pm === 'yarn') return 'yarn.lock';
+  if (pm === 'pnpm') return 'pnpm-lock.yaml';
+  return 'package-lock.json';
+}
+
+function getInstallCmd(pm: 'npm' | 'yarn' | 'pnpm'): string {
+  if (pm === 'yarn') return 'yarn install --frozen-lockfile';
+  if (pm === 'pnpm') return 'pnpm install --frozen-lockfile';
+  return 'npm ci';
+}
+
+function getBuildCmd(pm: 'npm' | 'yarn' | 'pnpm'): string {
+  if (pm === 'yarn') return 'yarn build';
+  if (pm === 'pnpm') return 'pnpm build';
+  return 'npm run build';
+}
+
 export async function setupDocker(context: ProjectContext): Promise<void> {
   logger.startSpinner('Setting up Docker...');
 
@@ -21,6 +39,10 @@ export async function setupDocker(context: ProjectContext): Promise<void> {
 
 async function createDockerfile(context: ProjectContext): Promise<void> {
   let dockerfile = '';
+  const pm = context.packageManager;
+  const lockFile = getLockFile(pm);
+  const installCmd = getInstallCmd(pm);
+  const buildCmd = getBuildCmd(pm);
 
   if (context.framework === 'react') {
     dockerfile = `# Build stage
@@ -28,11 +50,11 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY package.json ${lockFile} ./
+RUN ${installCmd}
 
 COPY . .
-RUN yarn build
+RUN ${buildCmd}
 
 # Production stage
 FROM nginx:alpine
@@ -52,8 +74,8 @@ FROM node:20-alpine AS deps
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY package.json ${lockFile} ./
+RUN ${installCmd}
 
 # Build stage
 FROM node:20-alpine AS build
@@ -63,7 +85,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN yarn build
+RUN ${buildCmd}
 
 # Production stage
 FROM node:20-alpine AS production
@@ -87,7 +109,10 @@ CMD ["node", "server.js"]
 
 async function createDockerignore(context: ProjectContext): Promise<void> {
   const dockerignore = `node_modules
+npm-debug.log*
 yarn-error.log
+yarn-debug.log*
+pnpm-debug.log*
 .next
 .git
 .gitignore

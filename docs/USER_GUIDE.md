@@ -53,25 +53,37 @@ npx create-scaffold-kit my-app
 
 ## After Creation
 
-Navigate to project:
+Navigate to project and install dependencies with your package manager:
 ```bash
 cd my-app
+
+# npm
+npm install
+npm run dev
+
+# yarn
 yarn install
 yarn dev
+
+# pnpm
+pnpm install
+pnpm dev
 ```
 
 ### Available Commands
 
+Replace `npm run` with `yarn` or `pnpm` depending on your package manager:
+
 ```bash
-yarn dev             # Start development server
-yarn build           # Build for production
-yarn preview         # Preview production build
-yarn lint            # Lint code
-yarn format          # Format code
-yarn type-check      # Check TypeScript
-yarn test            # Run tests
-yarn test:ui         # Interactive test UI
-yarn test:coverage   # Coverage report
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run lint         # Lint code
+npm run format       # Format code
+npm run type-check   # Check TypeScript
+npm test             # Run tests
+npm run test:ui      # Interactive test UI
+npm run test:coverage # Coverage report
 ```
 
 ## Environment Variables
@@ -120,13 +132,12 @@ docker run -p 80:80 my-app
 
 **Vercel (Next.js):**
 ```bash
-yarn global add vercel
-vercel
+npx vercel
 ```
 
 **Netlify (React):**
 ```bash
-yarn build
+npm run build
 # Upload dist/ folder to Netlify
 ```
 
@@ -141,48 +152,48 @@ docker push registry/my-app:latest
 **Port in use:**
 ```bash
 # Vite
-yarn dev --port 5174
+npm run dev -- --port 5174
 
 # Next.js
-yarn dev -p 3001
+npm run dev -- -p 3001
 ```
 
 **Dependencies error:**
 ```bash
-rm -rf node_modules yarn.lock
-yarn install
+rm -rf node_modules package-lock.json
+npm install
 ```
 
 **ESLint errors:**
 ```bash
-yarn lint:fix
+npm run lint:fix
 ```
 
 **TypeScript errors:**
 ```bash
-yarn type-check
+npm run type-check
 ```
 
 ## Adding Libraries
 
 **State Management:**
 ```bash
-yarn add zustand
+npm install zustand
 ```
 
 **Data Fetching:**
 ```bash
-yarn add @tanstack/react-query
+npm install @tanstack/react-query
 ```
 
 **Routing (React only):**
 ```bash
-yarn add react-router-dom
+npm install react-router-dom
 ```
 
 **Validation:**
 ```bash
-yarn add zod
+npm install zod
 ```
 
 ## Getting Help
@@ -191,5 +202,5 @@ yarn add zod
 - GitHub issues for bugs
 - Include versions when reporting:
   - Node: `node --version`
-  - Yarn: `yarn --version`
+  - Package manager: `npm --version` / `yarn --version` / `pnpm --version`
   - CLI: `create-scaffold-kit --version`

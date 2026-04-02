@@ -8,18 +8,16 @@ function buildCreateViteCommand(
   projectName: string,
   template: string
 ): { cmd: string; args: string[] } {
-  // npm requires '--' to forward args to the created package; yarn and pnpm do not
-  if (packageManager === 'npm') {
-    return {
-      cmd: 'npm',
-      args: ['create', 'vite@latest', projectName, '--', '--template', template],
-    };
-  }
   if (packageManager === 'pnpm') {
     return { cmd: 'pnpm', args: ['create', 'vite', projectName, '--template', template] };
   }
-  // yarn (all versions): no '--' separator needed
-  return { cmd: 'yarn', args: ['create', 'vite', projectName, '--template', template] };
+  // npm and yarn: use 'npm create vite@latest' to avoid a yarn classic bug on Windows
+  // where unquoted Node.js paths (e.g. C:\Program Files\nodejs\node.exe) cause
+  // "is not recognized as an internal or external command" errors.
+  return {
+    cmd: 'npm',
+    args: ['create', 'vite@latest', projectName, '--', '--template', template],
+  };
 }
 
 export async function scaffoldReact(context: ProjectContext): Promise<void> {

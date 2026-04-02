@@ -21,7 +21,7 @@ export async function setupHusky(context: ProjectContext): Promise<void> {
     // Configure lint-staged
     await configureLintStaged(context);
 
-    // Create husky hooks (will be created after yarn install)
+    // Create husky hooks (will be created after dependency install)
     await createHuskyHooks(context);
 
     logger.succeedSpinner('Husky configured');
@@ -52,11 +52,25 @@ async function createHuskyHooks(context: ProjectContext): Promise<void> {
   const huskyDir = joinPath(context.projectPath, '.husky');
   await ensureDir(huskyDir);
 
+  const lintStagedCmd =
+    context.packageManager === 'yarn'
+      ? 'yarn dlx lint-staged'
+      : context.packageManager === 'pnpm'
+        ? 'pnpm dlx lint-staged'
+        : 'npx lint-staged';
+
+  const runCmd = (script: string): string =>
+    context.packageManager === 'npm'
+      ? `npm run ${script}`
+      : context.packageManager === 'pnpm'
+        ? `pnpm ${script}`
+        : `yarn ${script}`;
+
   // pre-commit hook
   const preCommit = `#!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-yarn dlx lint-staged
+${lintStagedCmd}
 `;
 
   await writeFile(joinPath(huskyDir, 'pre-commit'), preCommit);
@@ -65,11 +79,11 @@ yarn dlx lint-staged
   const prePush = `#!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-${context.typescript ? 'yarn type-check' : ''}
-${context.testing === 'vitest' ? 'yarn test' : ''}
+${context.typescript ? runCmd('type-check') : ''}
+${context.testing === 'vitest' ? runCmd('test') : ''}
 `;
 
   await writeFile(joinPath(huskyDir, 'pre-push'), prePush);
 
-  logger.info('Husky hooks created (run yarn install to activate)');
+  logger.info(`Husky hooks created (run ${context.packageManager} install to activate)`);
 }

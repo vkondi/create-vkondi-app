@@ -30,8 +30,11 @@ Scaffold opinionated React (Vite) or Next.js applications with best practices ba
 ```bash
 npx create-scaffold-kit my-app
 cd my-app
-yarn install
-yarn dev
+
+# then install and start with your package manager
+npm install && npm run dev
+# or: yarn install && yarn dev
+# or: pnpm install && pnpm dev
 ```
 
 For detailed usage, configuration options, and examples, see [User Guide](docs/USER_GUIDE.md)
@@ -53,7 +56,7 @@ For detailed usage, configuration options, and examples, see [User Guide](docs/U
 ## Requirements
 
 - Node.js 18+
-- Yarn 3+ (npm and pnpm also supported)
+- npm, Yarn, or pnpm
 - Git (optional)
 - Docker (optional)
 

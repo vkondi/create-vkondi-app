@@ -79,15 +79,32 @@ describe('Docker Feature Setup', () => {
       expect(dockerfile).toContain('FROM nginx:alpine');
     });
 
-    it('should include build stage for React', async () => {
+    it('should include install and build commands for npm in React Dockerfile', async () => {
       const reactContext = { ...mockContext, framework: 'react' as const };
       await setupDocker(reactContext);
 
       const dockerfileCall = vi.mocked(writeFile).mock.calls[0];
       const dockerfile = dockerfileCall[1] as string;
 
-      expect(dockerfile).toContain('yarn install');
+      expect(dockerfile).toContain('npm ci');
+      expect(dockerfile).toContain('npm run build');
+      expect(dockerfile).toContain('package-lock.json');
+    });
+
+    it('should use yarn commands in React Dockerfile when packageManager is yarn', async () => {
+      const yarnContext = {
+        ...mockContext,
+        framework: 'react' as const,
+        packageManager: 'yarn' as const,
+      };
+      await setupDocker(yarnContext);
+
+      const dockerfileCall = vi.mocked(writeFile).mock.calls[0];
+      const dockerfile = dockerfileCall[1] as string;
+
+      expect(dockerfile).toContain('yarn install --frozen-lockfile');
       expect(dockerfile).toContain('yarn build');
+      expect(dockerfile).toContain('yarn.lock');
     });
 
     it('should setup nginx for React', async () => {
@@ -131,7 +148,7 @@ describe('Docker Feature Setup', () => {
       const dockerfileCall = vi.mocked(writeFile).mock.calls[0];
       const dockerfile = dockerfileCall[1] as string;
 
-      expect(dockerfile).toContain('yarn build');
+      expect(dockerfile).toContain('npm run build');
       expect(dockerfile).toContain('server.js');
       expect(dockerfile).toContain('EXPOSE 3000');
     });

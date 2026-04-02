@@ -6,13 +6,10 @@ Scaffold opinionated **React** or **Next.js** applications with best practices b
 
 ```bash
 # npm
-npx create-scaffold-kit my-app
-
-# yarn
-yarn create scaffold-kit my-app
+npx create-scaffold-kit@latest my-app
 
 # pnpm
-pnpm create scaffold-kit my-app
+pnpm create scaffold-kit@latest my-app
 ```
 
 Then follow the interactive prompts to configure your project.
