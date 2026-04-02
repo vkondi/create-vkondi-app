@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.0.5](https://github.com/vkondi/create-scaffold-kit/compare/v0.0.4...v0.0.5) (2026-04-02)
+
+
+### Bug Fixes
+
+* react cli yarn specific issue ([77f4bbc](https://github.com/vkondi/create-scaffold-kit/commit/77f4bbc16a41a064a2a75f2289515b428451e90d))
+
 ## [0.0.4](https://github.com/vkondi/create-scaffold-kit/compare/v0.0.3...v0.0.4) (2026-04-02)
 
 
