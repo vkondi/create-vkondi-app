@@ -52,8 +52,8 @@ describe('React Project Scaffold', () => {
       await scaffoldReact(mockContext);
 
       expect(vi.mocked(execa)).toHaveBeenCalledWith(
-        'yarn',
-        ['create', 'vite', mockContext.projectName, '--', '--template', 'react-ts'],
+        'npm',
+        ['create', 'vite@latest', mockContext.projectName, '--', '--template', 'react-ts'],
         expect.any(Object)
       );
     });
@@ -63,8 +63,30 @@ describe('React Project Scaffold', () => {
       await scaffoldReact(jsContext);
 
       expect(vi.mocked(execa)).toHaveBeenCalledWith(
+        'npm',
+        ['create', 'vite@latest', jsContext.projectName, '--', '--template', 'react'],
+        expect.any(Object)
+      );
+    });
+
+    it('should call execa with yarn args when packageManager is yarn', async () => {
+      const yarnContext = { ...mockContext, packageManager: 'yarn' as const };
+      await scaffoldReact(yarnContext);
+
+      expect(vi.mocked(execa)).toHaveBeenCalledWith(
         'yarn',
-        ['create', 'vite', jsContext.projectName, '--', '--template', 'react'],
+        ['create', 'vite', yarnContext.projectName, '--template', 'react-ts'],
+        expect.any(Object)
+      );
+    });
+
+    it('should call execa with pnpm args when packageManager is pnpm', async () => {
+      const pnpmContext = { ...mockContext, packageManager: 'pnpm' as const };
+      await scaffoldReact(pnpmContext);
+
+      expect(vi.mocked(execa)).toHaveBeenCalledWith(
+        'pnpm',
+        ['create', 'vite', pnpmContext.projectName, '--template', 'react-ts'],
         expect.any(Object)
       );
     });

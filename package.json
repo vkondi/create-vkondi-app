@@ -1,6 +1,6 @@
 {
   "name": "create-scaffold-kit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Scaffold opinionated React or Next.js applications",
   "type": "module",
   "bin": {
