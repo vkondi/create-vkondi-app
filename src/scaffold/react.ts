@@ -3,13 +3,37 @@ import type { ProjectContext } from '../context.js';
 import { logger } from '../utils/logger.js';
 import { ensureDir, writeFile, joinPath, removeFile } from '../utils/file.js';
 
+function buildCreateViteCommand(
+  packageManager: 'npm' | 'yarn' | 'pnpm',
+  projectName: string,
+  template: string
+): { cmd: string; args: string[] } {
+  // npm requires '--' to forward args to the created package; yarn and pnpm do not
+  if (packageManager === 'npm') {
+    return {
+      cmd: 'npm',
+      args: ['create', 'vite@latest', projectName, '--', '--template', template],
+    };
+  }
+  if (packageManager === 'pnpm') {
+    return { cmd: 'pnpm', args: ['create', 'vite', projectName, '--template', template] };
+  }
+  // yarn (all versions): no '--' separator needed
+  return { cmd: 'yarn', args: ['create', 'vite', projectName, '--template', template] };
+}
+
 export async function scaffoldReact(context: ProjectContext): Promise<void> {
   logger.step('Creating React (Vite) project...');
 
   try {
     // Create Vite project
     const template = context.typescript ? 'react-ts' : 'react';
-    await execa('yarn', ['create', 'vite', context.projectName, '--', '--template', template], {
+    const { cmd, args } = buildCreateViteCommand(
+      context.packageManager,
+      context.projectName,
+      template
+    );
+    await execa(cmd, args, {
       cwd: process.cwd(),
       stdio: 'pipe',
     });

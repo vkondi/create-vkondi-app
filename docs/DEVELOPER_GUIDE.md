@@ -104,6 +104,19 @@ yarn build
 yarn dev
 ```
 
+## Project Scripts
+
+Build and lifecycle scripts live in the `scripts/` folder rather than inline in `package.json`:
+
+| File | Invoked by | Purpose |
+|---|---|---|
+| `scripts/prepack.cjs` | `prepack` hook | Swaps `README.md` with `README.npm.md` before the tarball is created |
+| `scripts/postpack.cjs` | `postpack` hook | Restores `README.md` after the tarball is created |
+
+`prepack` and `postpack` are standard npm lifecycle hooks — they run automatically before/after `npm pack`, `npm publish`, and `yarn publish`. No manual invocation is needed.
+
+The `.cjs` extension is used so Node.js treats these as CommonJS modules, since the package root has `"type": "module"`.
+
 ## Code Patterns
 
 ### Feature Module Template

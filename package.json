@@ -16,6 +16,8 @@
     "release:patch": "release-it patch",
     "release:minor": "release-it minor",
     "release:major": "release-it major",
+    "prepack": "node scripts/prepack.cjs",
+    "postpack": "node scripts/postpack.cjs",
     "prepublishOnly": "yarn type-check && yarn lint && yarn test:run && yarn build",
     "qa": "yarn type-check && yarn lint && yarn format:check && yarn test:run",
     "type-check": "tsc --noEmit",

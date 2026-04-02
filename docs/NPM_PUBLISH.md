@@ -71,7 +71,24 @@ CONTRIBUTING.md
 
 > **Note:** The `files` field in `package.json` acts as a whitelist — only `dist/` and required files (e.g. `package.json`, `README.md`, `LICENSE`) are included in the published package. The `.npmignore` provides additional exclusions as a safety net.
 
-### 3. Build the Package
+### 3. README Swap (Automatic)
+
+The package maintains two separate README files:
+
+| File | Purpose |
+|---|---|
+| `README.md` | Shown on GitHub — includes architecture details, development setup, and links to `docs/` |
+| `README.npm.md` | Shown on npm — user-focused: install commands, features table, CLI options |
+
+The swap happens automatically via npm lifecycle hooks — no manual steps required:
+
+1. **`prepack`** (`scripts/prepack.cjs`) — backs up `README.md` → `README.github.md`, copies `README.npm.md` → `README.md`
+2. Tarball is created with the npm README as `README.md`
+3. **`postpack`** (`scripts/postpack.cjs`) — restores `README.md` from `README.github.md`, deletes the backup
+
+> `README.github.md` is listed in `.gitignore` so it is never accidentally committed.
+
+### 4. Build the Package
 
 The `prepublishOnly` script automatically runs type-checking, linting, tests, and a build before each publish. To build manually:
 
@@ -108,7 +125,7 @@ yarn unlink
 yarn pack --dry-run
 ```
 
-Review listed files to ensure nothing sensitive is included.
+Review listed files to ensure nothing sensitive is included. Confirm `README.md` in the listing reflects the npm-specific content (the swap is applied during `pack`).
 
 ## Publishing
 

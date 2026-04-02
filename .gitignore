@@ -7,3 +7,4 @@ dist
 coverage
 .turbo
 test-project
+README.github.md
