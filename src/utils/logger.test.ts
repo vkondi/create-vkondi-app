@@ -19,7 +19,7 @@ vi.mock('chalk', () => ({
 vi.mock('ora');
 
 describe('Logger Utils', () => {
-  let consoleSpy: MockInstance<unknown[], void>;
+  let consoleSpy: MockInstance<typeof console.log>;
 
   beforeEach(() => {
     vi.clearAllMocks();
