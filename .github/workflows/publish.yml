@@ -2,6 +2,9 @@ name: Publish
 permissions:
   contents: read
 
+permissions:
+  contents: read
+
 on:
   release:
     types: [published]
@@ -12,6 +15,9 @@ on:
         required: false
         type: boolean
         default: false
+
+permissions:
+  contents: read
 
 jobs:
   type-check:
