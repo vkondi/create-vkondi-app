@@ -70,9 +70,9 @@
     "@vitest/coverage-v8": "^4.1.2",
     "@vitest/ui": "^4.1.2",
     "husky": "^9.1.7",
-    "oxfmt": "^0.44.0",
+    "oxfmt": "^0.45.0",
     "oxlint": "^1.56.0",
-    "release-it": "^19.2.4",
+    "release-it": "^20.0.0",
     "tsup": "^8.0.1",
     "typescript": "^6.0.2",
     "vitest": "^4.1.2"
