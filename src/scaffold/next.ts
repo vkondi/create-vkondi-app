@@ -4,13 +4,11 @@ import { logger } from '../utils/logger.js';
 import { writeFile, joinPath, pathExists } from '../utils/file.js';
 
 export async function scaffoldNext(context: ProjectContext): Promise<void> {
-  logger.startSpinner('Creating Next.js project...');
-
   try {
     const args = [
+      '-y',
       'create-next-app@latest',
       context.projectName,
-      '--',
       '--app',
       '--no-git',
       context.typescript ? '--ts' : '--js',
@@ -21,14 +19,14 @@ export async function scaffoldNext(context: ProjectContext): Promise<void> {
       '@/*',
     ];
 
-    // Let create-next-app ask for TypeScript, linter, and other interactive prompts
-    // This avoids duplicate questions and uses Next.js's native setup flow
+    logger.step('Creating Next.js project...');
+
     await execa('npx', args, {
       cwd: process.cwd(),
       stdio: 'inherit',
     });
 
-    logger.succeedSpinner('Next.js project created');
+    logger.success('Next.js project created');
 
     // Detect if TypeScript was chosen by create-next-app
     const detectTypeScript = async (): Promise<boolean> => {
@@ -46,7 +44,7 @@ export async function scaffoldNext(context: ProjectContext): Promise<void> {
     // Update Next.js config
     await updateNextConfig(context, usesTypeScript);
   } catch (error) {
-    logger.failSpinner('Failed to create Next.js project');
+    logger.error('Failed to create Next.js project');
     throw error;
   }
 }
