@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.0.7](https://github.com/vkondi/create-scaffold-kit/compare/v0.0.6...v0.0.7) (2026-05-17)
+
+
+### Bug Fixes
+
+* added ignoreDeprecations to tsconfig for new version compatibility ([45cc146](https://github.com/vkondi/create-scaffold-kit/commit/45cc1469ed70cf623f4b58b35c2a2fdd67df0392))
+* cap undici to v6 ([af4f6f6](https://github.com/vkondi/create-scaffold-kit/commit/af4f6f6114db026482982acbcbf3059bfbef6771))
+* esbuild enables any website to send any requests to the development server and read the response ([9ccf600](https://github.com/vkondi/create-scaffold-kit/commit/9ccf600ee76042e278c11712afd9b82a85db0a01))
+* nextjs install step blocker ([dec4d7c](https://github.com/vkondi/create-scaffold-kit/commit/dec4d7c1dd8638f42d7bfdf8321ab9309a944619))
+* Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching ([5ee44ad](https://github.com/vkondi/create-scaffold-kit/commit/5ee44ad31efec6be2ccd2c912f55bb9c296427d1))
+* Undici: Malicious WebSocket 64-bit length overflows parser and crashes the client [#3](https://github.com/vkondi/create-scaffold-kit/issues/3) ([7221e24](https://github.com/vkondi/create-scaffold-kit/commit/7221e2459beec8d2eab3a1c0ab8878e7607cc272))
+
 ## [0.0.6](https://github.com/vkondi/create-scaffold-kit/compare/v0.0.5...v0.0.6) (2026-04-02)
 
 
